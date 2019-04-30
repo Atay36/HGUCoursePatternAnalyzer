@@ -5,6 +5,8 @@ import edu.handong.analysis.datamodel.Student;
 
 public class HGUCoursePatternAnalyzer {
 	
+	private static final String str = null;
+
 	String[] lines = {	"1999-1, JC Nam, Java Programming",
 						"1999-2, JC Nam, Programming Language Theory",
 						"1999-1, JC Nam, Data Structures",
@@ -54,11 +56,32 @@ public class HGUCoursePatternAnalyzer {
 	 * @return
 	 */
 	private Student[] initiateStudentArrayFromLines(String[] lines) {
-		
+		int i=0;
+		int k=0;
+		Student[] studentA = new Student[numOfStudents];
+		Student stu = new Student(" ");
 		// TODO: implement this method
+		String[] a;
+
+		for(int j=0;j<numOfStudents;j++)
+			studentA[j]= new Student(" ");
 		
+		while(i<numOfStudents) {
+			a=lines[k].split(",");
+			stu=new Student(a[1].trim());
+			System.out.println(stu.toString());
+			System.out.println(studentA.toString());
+
+
+			if(studentExist(studentA, stu)) {
+				studentA[i] = stu;
+				System.out.println(studentA[i]);
+				i++;
+			}
+			k++;
+		}
+		return studentA;
 		
-		return null;
 	}
 
 	/**
@@ -70,8 +93,13 @@ public class HGUCoursePatternAnalyzer {
 	private boolean studentExist(Student[] students, Student student) {
 		
 		// TODO: implement this method
-
-		return false;
+		for(int i =0; i<numOfStudents; i++) {
+			if(students[i].equals(student)) {
+				System.out.println("equals");
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**
@@ -82,8 +110,26 @@ public class HGUCoursePatternAnalyzer {
 	private Course[] initiateCourseArrayFromLines(String[] lines) {
 		
 		// TODO: implement this method
+		int i=0;
+		int k=0;
+		Course[] courseA = new Course[numOfCourses];
+
+		// TODO: implement this method
+		String[] a;
 		
-		return null;
+		while(i<numOfCourses) {
+			a=lines[i].split(",");
+			
+			courseA[i] = new Course(a[2].trim());
+			k=0;
+			for(int j=0;j<i;j++) {
+				if(courseA[j]==courseA[i]) {
+					break;
+				}k++;
+			}
+			if(k==i) i++;
+		}
+		return courseA;
 	}
 
 	/**
@@ -92,11 +138,11 @@ public class HGUCoursePatternAnalyzer {
 	 * @param course
 	 * @return boolean
 	 */
-	private boolean courseExist(Course[] courses, Course course) {
-		
-		// TODO: implement this method
-
-		return false;
-	}
+//	private boolean courseExist(Course[] courses, Course course) {
+//		
+//		// TODO: implement this method
+//
+//		return false;
+//	}
 
 }
