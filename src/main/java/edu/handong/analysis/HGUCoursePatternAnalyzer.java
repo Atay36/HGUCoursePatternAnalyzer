@@ -58,6 +58,8 @@ public class HGUCoursePatternAnalyzer {
 	private Student[] initiateStudentArrayFromLines(String[] lines) {
 		int i=0;
 		int k=0;
+		boolean x=true;
+		
 		Student[] studentA = new Student[numOfStudents];
 		Student stu = new Student(" ");
 		// TODO: implement this method
@@ -66,16 +68,15 @@ public class HGUCoursePatternAnalyzer {
 		for(int j=0;j<numOfStudents;j++)
 			studentA[j]= new Student(" ");
 		
-		while(lines[k]!=null&&i<numOfStudents) {
+		while(i<numOfStudents&&lines[k]!=null) {
 			a=lines[k].split(",");
 			stu=new Student(a[1].trim());
-			System.out.println(stu);
-			System.out.println(studentA);
 
-
-			if(studentExist(studentA, stu)) {
+			x= studentExist(studentA, stu);
+			//System.out.println(x);
+			if(x) {
 				studentA[i] = stu;
-				System.out.println(studentA[i]);
+				//System.out.println(studentA[i].getName());
 				i++;
 			}
 			k++;
@@ -91,14 +92,25 @@ public class HGUCoursePatternAnalyzer {
 	 * @return boolean
 	 */
 	private boolean studentExist(Student[] students, Student student) {
-		
+		int i=0;
+		Student[] studentB = new Student[2];
+		studentB[0] = student;
+		//System.out.println(studentB[0].getName());
 		// TODO: implement this method
-		for(int i =0; i<numOfStudents; i++) {
-			if(student.equals(students[i])==false) {
-				System.out.println("equals");
+		//for(int i =0; i<numOfStudents; i++) {
+		while(i<numOfStudents&&students[i]!=null) {
+			
+			if((students[i].getName()).equals(studentB[0].getName())) {
+				//System.out.println("equals");
 				return false;
 			}
+			i++;
+			
+			//return false;
 		}
+		//}
+		
+		
 		return true;
 	}
 	
@@ -109,25 +121,29 @@ public class HGUCoursePatternAnalyzer {
 	 */
 	private Course[] initiateCourseArrayFromLines(String[] lines) {
 		
-		// TODO: implement this method
 		int i=0;
 		int k=0;
+		boolean x=true;
+		
 		Course[] courseA = new Course[numOfCourses];
-
+		Course cou = new Course(" ");
 		// TODO: implement this method
 		String[] a;
+
+		for(int j=0;j<numOfCourses;j++)
+			courseA[j]= new Course(" ");
 		
-		while(i<numOfCourses) {
-			a=lines[i].split(",");
-			
-			courseA[i] = new Course(a[2].trim());
-			k=0;
-			for(int j=0;j<i;j++) {
-				if(courseA[j]==courseA[i]) {
-					break;
-				}k++;
+		while(i<numOfCourses&&lines[k]!=null) {
+			a=lines[k].split(",");
+			cou=new Course(a[2].trim());
+
+			x= courseExist(courseA, cou);
+			//System.out.println(x);
+			if(x) {
+				courseA[i] = cou;
+				i++;
 			}
-			if(k==i) i++;
+			k++;
 		}
 		return courseA;
 	}
@@ -138,11 +154,28 @@ public class HGUCoursePatternAnalyzer {
 	 * @param course
 	 * @return boolean
 	 */
-//	private boolean courseExist(Course[] courses, Course course) {
-//		
-//		// TODO: implement this method
-//
-//		return false;
-//	}
+	private boolean courseExist(Course[] courses, Course course) {
+		
+		int i=0;
+		Course[] courseB = new Course[2];
+		courseB[0] = course;
+		//System.out.println(studentB[0].getName());
+		// TODO: implement this method
+		//for(int i =0; i<numOfStudents; i++) {
+		while(i<numOfCourses&&courses[i]!=null) {
+			
+			if((courses[i].getCourseName()).equals(courseB[0].getCourseName())) {
+				//System.out.println("equals");
+				return false;
+			}
+			i++;
+			
+			//return false;
+		}
+		//}
+		
+		
+		return true;
+	}
 
 }
