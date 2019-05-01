@@ -66,11 +66,11 @@ public class HGUCoursePatternAnalyzer {
 		for(int j=0;j<numOfStudents;j++)
 			studentA[j]= new Student(" ");
 		
-		while(i<numOfStudents) {
+		while(lines[k]!=null&&i<numOfStudents) {
 			a=lines[k].split(",");
 			stu=new Student(a[1].trim());
-			System.out.println(stu.toString());
-			System.out.println(studentA.toString());
+			System.out.println(stu);
+			System.out.println(studentA);
 
 
 			if(studentExist(studentA, stu)) {
@@ -94,7 +94,7 @@ public class HGUCoursePatternAnalyzer {
 		
 		// TODO: implement this method
 		for(int i =0; i<numOfStudents; i++) {
-			if(students[i].equals(student)) {
+			if(student.equals(students[i])==false) {
 				System.out.println("equals");
 				return false;
 			}
