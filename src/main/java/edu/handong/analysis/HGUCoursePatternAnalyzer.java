@@ -3,11 +3,11 @@ package edu.handong.analysis;
 import edu.handong.analysis.datamodel.Course;
 import edu.handong.analysis.datamodel.Student;
 
+import java.util.ArrayList;
+
 public class HGUCoursePatternAnalyzer {
 	
-	private static final String str = null;
-
-	String[] lines = {	"1999-1, JC Nam, Java Programming",
+	private String[] lines = {	"1999-1, JC Nam, Java Programming",
 						"1999-2, JC Nam, Programming Language Theory",
 						"1999-1, JC Nam, Data Structures",
 						"2001-1, JC Nam, Database Systems",
@@ -21,11 +21,10 @@ public class HGUCoursePatternAnalyzer {
 						"2019-1, SJ Kim, Algorithm Analysis",
 						};
 
-	int numOfStudents;
-	int numOfCourses;
-	Student[] students;
-	Course[] courses;
-	
+	private int numOfStudents;
+	private int numOfCourses;
+	private ArrayList<Student> students;
+	private ArrayList<Course> courses;	
 	/**
 	 * This method runs our analysis logic to get the list of student and course names from lines.
 	 * @param args
@@ -55,34 +54,19 @@ public class HGUCoursePatternAnalyzer {
 	 * @param lines
 	 * @return
 	 */
-	private Student[] initiateStudentArrayFromLines(String[] lines) {
-		int i=0;
-		int k=0;
-		boolean x=true;
+	private ArrayList<Student> initiateStudentArrayFromLines(String[] lines) {
 		
-		Student[] studentA = new Student[numOfStudents];
-		Student stu = new Student(" ");
-		// TODO: implement this method
-		String[] a;
-
-		for(int j=0;j<numOfStudents;j++)
-			studentA[j]= new Student(" ");
+		ArrayList<Student> students = new ArrayList<Student>();
 		
-		while(i<numOfStudents&&lines[k]!=null) {
-			a=lines[k].split(",");
-			stu=new Student(a[1].trim());
-
-			x= studentExist(studentA, stu);
-			//System.out.println(x);
-			if(x) {
-				studentA[i] = stu;
-				//System.out.println(studentA[i].getName());
-				i++;
-			}
-			k++;
+		int count = 0;
+		for(String line:lines) {
+			String studentName = line.split(",")[1].trim();
+			Student newStudent = new Student(studentName);
+			if(!studentExist(students,newStudent))
+				students.add(newStudent);
 		}
-		return studentA;
 		
+		return students;
 	}
 
 	/**
@@ -91,27 +75,14 @@ public class HGUCoursePatternAnalyzer {
 	 * @param student
 	 * @return boolean
 	 */
-	private boolean studentExist(Student[] students, Student student) {
-		int i=0;
-		Student[] studentB = new Student[2];
-		studentB[0] = student;
-		//System.out.println(studentB[0].getName());
-		// TODO: implement this method
-		//for(int i =0; i<numOfStudents; i++) {
-		while(i<numOfStudents&&students[i]!=null) {
-			
-			if((students[i].getName()).equals(studentB[0].getName())) {
-				//System.out.println("equals");
-				return false;
-			}
-			i++;
-			
-			//return false;
+	private boolean studentExist(ArrayList<Student> students, Student student) {
+		
+		for(Student aStudent:students) {
+			if(aStudent != null && aStudent.getName().equals(student.getName()))
+				return true;
 		}
-		//}
-		
-		
-		return true;
+
+		return false;
 	}
 	
 	/**
@@ -119,33 +90,19 @@ public class HGUCoursePatternAnalyzer {
 	 * @param lines
 	 * @return
 	 */
-	private Course[] initiateCourseArrayFromLines(String[] lines) {
+	private ArrayList<Course> initiateCourseArrayFromLines(String[] lines) {
 		
-		int i=0;
-		int k=0;
-		boolean x=true;
+		ArrayList<Course> courses = new ArrayList<Course>();
 		
-		Course[] courseA = new Course[numOfCourses];
-		Course cou = new Course(" ");
-		// TODO: implement this method
-		String[] a;
-
-		for(int j=0;j<numOfCourses;j++)
-			courseA[j]= new Course(" ");
-		
-		while(i<numOfCourses&&lines[k]!=null) {
-			a=lines[k].split(",");
-			cou=new Course(a[2].trim());
-
-			x= courseExist(courseA, cou);
-			//System.out.println(x);
-			if(x) {
-				courseA[i] = cou;
-				i++;
-			}
-			k++;
+		int count = 0;
+		for(String line:lines) {
+			String courseName = line.split(",")[2].trim();
+			Course newCourse = new Course(courseName);
+			if(!courseExist(courses,newCourse))
+				courses.add(newCourse);
 		}
-		return courseA;
+		
+		return courses;
 	}
 
 	/**
@@ -154,28 +111,13 @@ public class HGUCoursePatternAnalyzer {
 	 * @param course
 	 * @return boolean
 	 */
-	private boolean courseExist(Course[] courses, Course course) {
+	private boolean courseExist(ArrayList<Course> courses, Course course) {
 		
-		int i=0;
-		Course[] courseB = new Course[2];
-		courseB[0] = course;
-		//System.out.println(studentB[0].getName());
-		// TODO: implement this method
-		//for(int i =0; i<numOfStudents; i++) {
-		while(i<numOfCourses&&courses[i]!=null) {
-			
-			if((courses[i].getCourseName()).equals(courseB[0].getCourseName())) {
-				//System.out.println("equals");
-				return false;
-			}
-			i++;
-			
-			//return false;
+		for(Course aCourse:courses) {
+			if(aCourse != null && aCourse.getCourseName().equals(course.getCourseName()))
+				return true;
 		}
-		//}
-		
-		
-		return true;
-	}
 
+		return false;
+	}
 }
